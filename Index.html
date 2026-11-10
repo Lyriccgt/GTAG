@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTAG ESPORTS HUB</title>
+<style>
+:root{--bg:#090810;--panel:#151020;--panel2:#1d152b;--accent:#a855f7;--accent2:#d8b4fe;--text:#f8f5ff;--muted:#aa9db8;--line:#382747;--good:#4ade80;--danger:#fb7185}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+header{position:sticky;top:0;z-index:20;background:#100b19ed;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:14px 4%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-weight:1000;letter-spacing:1px;font-size:20px;white-space:nowrap}.brand span{color:var(--accent2)}
+nav{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+nav button,.tab{background:transparent;color:var(--muted);border:1px solid transparent;border-radius:8px;padding:9px 12px;font-weight:800;font-size:12px}
+nav button.active,nav button:hover,.tab.active{color:white;background:#38204d;border-color:#74439b}
+main{max-width:1250px;margin:auto;padding:28px 22px 60px}.page{display:none}.page.active{display:block}
+.hero{padding:58px 24px;text-align:center;border:1px solid var(--line);border-radius:18px;background:radial-gradient(ellipse at 50% 10%,#512078 0%,#251333 38%,#100b18 80%);margin-bottom:24px}
+.eyebrow{display:inline-block;color:var(--accent2);border:1px solid var(--accent);padding:7px 12px;border-radius:30px;font-size:11px;font-weight:900;letter-spacing:2px}
+h1{font-size:clamp(38px,7vw,70px);margin:17px 0 8px;line-height:1.02}h1 span,.accent{color:var(--accent2)}h2{font-size:24px;margin:0 0 16px}h3{margin:0 0 8px}.muted{color:var(--muted);font-size:13px;line-height:1.5}
+.btn{border:0;border-radius:8px;padding:11px 15px;background:var(--accent);color:white;font-weight:900}.btn:hover{filter:brightness(1.15)}.btn.secondary{background:#30213f;border:1px solid #614078}.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--accent2)}.btn.danger{background:#7f1d35}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.grid2{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:18px;min-width:0}
+.stat{font-size:30px;font-weight:1000;color:var(--accent2)}.statlabel{font-size:11px;color:var(--muted);font-weight:900;letter-spacing:1px;margin-top:3px}
+.game-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.game-card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.game-icon{font-size:30px}.game-card p{margin:0;min-height:36px}.game-card .row{margin-top:auto}
+input,select,textarea{background:#0e0a15;border:1px solid #49345b;color:var(--text);border-radius:8px;padding:11px;width:100%;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}label{font-size:12px;color:var(--muted);font-weight:800;display:block;margin:12px 0 6px}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:11px;text-transform:uppercase}td{font-size:14px}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:30px;padding:5px 9px;color:var(--accent2);font-size:11px;font-weight:900}
+.listrow{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.listrow:last-child{border:0}.rank{width:28px;color:var(--accent2);font-weight:1000}.grow{flex:1;min-width:0}
+.picker-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}.pick-option{display:flex;align-items:center;gap:8px;background:#100b18;border:1px solid var(--line);border-radius:8px;padding:9px;font-size:13px}.pick-option input{width:auto}.entrant-chip{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}.bracket-wrap{overflow-x:auto;padding:8px 2px 18px}.bracket{display:flex;gap:24px;align-items:stretch;min-width:max-content}.round{width:210px;display:flex;flex-direction:column;justify-content:space-around;gap:14px}.round h3{color:var(--accent2);font-size:13px;text-transform:uppercase;letter-spacing:1px}.match{background:#100b18;border:1px solid var(--line);border-radius:9px;padding:10px}.slot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 4px;border-bottom:1px solid #30213f;font-size:13px}.slot:last-child{border:0}.slot.winner{color:var(--good);font-weight:900}.slot button{padding:3px 7px;background:#38204d;border:0;border-radius:5px;color:white;font-size:11px}
+.empty{border:1px dashed #614078;border-radius:12px;padding:28px;text-align:center;color:var(--muted)}
+.profile-head{display:flex;align-items:center;gap:14px}.avatar{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#4c1d95,var(--accent));display:grid;place-items:center;font-weight:1000;font-size:20px}
+.settings-preview{border-radius:12px;padding:20px;background:radial-gradient(circle at top right,#482064,#151020 65%);border:1px solid var(--line)}
+footer{text-align:center;border-top:1px solid var(--line);padding:25px;color:var(--muted);font-size:12px}
+.small{font-size:11px}.right{text-align:right}.hidden{display:none!important}
+@media(max-width:850px){header{align-items:flex-start;flex-direction:column}nav{justify-content:flex-start}.cards{grid-template-columns:repeat(2,1fr)}.game-grid{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+@media(max-width:520px){main{padding:18px 12px}.cards,.game-grid,.form-grid{grid-template-columns:1fr}.hero{padding:42px 16px}nav button{padding:8px;font-size:11px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand">GTAG <span>ESPORTS HUB</span></div>
+ <nav id="nav">
+  <button class="active" data-page="home">HOME</button>
+  <button data-page="games">GAMES</button>
+  <button data-page="rankings">RANKINGS</button>
+  <button data-page="brackets">BRACKETS</button>
+  <button data-page="teams">TEAMS</button>
+  <button data-page="customize">CUSTOMIZE</button>
+ </nav>
+</header>
+<main>
+<section id="home" class="page active">
+ <div class="hero">
+  <div class="eyebrow">THE COMMUNITY ESPORTS DESTINATION</div>
+  <h1 id="heroTitle">PLAY. COMPETE.<br><span>TAKE THE CROWN.</span></h1>
+  <p class="muted">One hub for your games, players, teams, tournaments and rivalries.</p>
+  <div class="row" style="justify-content:center;margin-top:20px"><button class="btn" data-go="brackets">CREATE A BRACKET</button><button class="btn secondary" data-go="games">EXPLORE GAMES</button></div>
+ </div>
+ <div class="cards">
+  <div class="card"><div class="stat" id="statGames">6</div><div class="statlabel">GAMES IN THE HUB</div></div>
+  <div class="card"><div class="stat" id="statPlayers">7</div><div class="statlabel">PLAYERS TRACKED</div></div>
+  <div class="card"><div class="stat" id="statBrackets">0</div><div class="statlabel">BRACKETS CREATED</div></div>
+  <div class="card"><div class="stat" id="statMatches">0</div><div class="statlabel">MATCHES COMPLETED</div></div>
+ </div>
+ <div class="grid2">
+  <div class="card"><div class="row between"><h2>Featured <span class="accent">games</span></h2><button class="btn ghost" data-go="games">All games →</button></div><div id="homeGames" class="game-grid"></div></div>
+  <div class="card"><h2>Top <span class="accent">players</span></h2><div id="homePlayers"></div></div>
+ </div>
+ <div class="card" style="margin-top:18px"><div class="row between"><h2>Recent <span class="accent">tournament champions</span></h2><button class="btn ghost" data-go="brackets">VIEW BRACKETS</button></div><div id="recentActivity"></div></div>
+</section>
+<section id="games" class="page">
+ <div class="row between"><div><h2>Game <span class="accent">hub</span></h2><p class="muted">Choose a game to view its community leaderboard or create a tournament.</p></div><button class="btn" id="addGameBtn">+ ADD A GAME</button></div>
+ <div id="gameGrid" class="game-grid"></div>
+</section>
+
+<section id="rankings" class="page">
+ <h2>Player <span class="accent">rankings</span></h2><p class="muted">Your friend-group leaderboard. Track wins, losses, and tournament points for every game.</p>
+ <div class="toolbar"><input id="rankSearch" placeholder="Search players..." style="max-width:300px"><select id="rankGame" style="max-width:220px"></select><button class="btn secondary" id="addPlayerBtn">+ ADD PLAYER</button></div><p class="muted small">Tournament champions earn 100 points and 1 tournament win per player on the winning team. Use the admin reset in Customize to restart everyone’s stats.</p>
+ <div class="card" style="overflow-x:auto"><table><thead><tr><th>#</th><th>Player</th><th>Game</th><th>Wins</th><th>Losses</th><th>Score</th><th>Update</th></tr></thead><tbody id="rankTable"></tbody></table></div>
+</section>
+<section id="brackets" class="page">
+ <h2>Tournament <span class="accent">bracket creator</span></h2><p class="muted">Create single-elimination tournaments, add entrants, and record winners match by match.</p>
+ <div class="grid2">
+  <div class="card">
+   <h3>Create a tournament</h3>
+   <label>Tournament name</label><input id="bracketName" placeholder="e.g. Friday Night Finals">
+   <label>Game</label><select id="bracketGame"></select>
+   <label>Format</label><select id="bracketFormat"><option value="single">Single elimination</option></select>
+   <label>Choose players competing</label>
+   <p class="muted small">Select 1–5 players, then add them as one entrant. Repeat to create each player or team in the tournament.</p>
+   <div id="playerPicker" class="picker-grid"></div>
+   <div class="toolbar"><button class="btn secondary" id="addEntrantBtn">ADD SELECTED PLAYERS / TEAM</button></div>
+   <div class="card" style="margin-top:12px"><b>Entrants in this tournament</b><div id="draftEntrants" class="muted small" style="margin-top:8px">No entrants added yet.</div></div>
+   <div class="toolbar"><button class="btn" id="createBracket">GENERATE BRACKET</button><button class="btn ghost" id="clearEntrantsBtn">CLEAR ENTRANTS</button></div>
+   <p class="muted small">Use 2–32 entrants. Each entrant can have up to 5 players (up to 5v5). Tournament champions earn 100 points per player on the winning team.</p>
+  </div>
+  <div class="card">
+   <h3>Your tournaments</h3><div id="bracketList" class="muted">No tournaments yet. Create one to get started.</div>
+  </div>
+ </div>
+ <div id="bracketDetail" class="card" style="margin-top:18px"><div class="empty">Your generated bracket will appear here.</div></div>
+</section>
+<section id="teams" class="page">
+ <div class="row between"><div><h2>Teams & <span class="accent">clubs</span></h2><p class="muted">Create team cards for your esports community.</p></div><button class="btn" id="addTeamBtn">+ CREATE TEAM</button></div>
+ <div id="teamGrid" class="game-grid"></div>
+</section>
+<section id="customize" class="page">
+ <h2>Customize your <span class="accent">hub</span></h2><p class="muted">Change the site's name, accent color, and home page message. Your settings save in this browser.</p>
+ <div class="grid2">
+  <div class="card">
+   <label>Website name</label><input id="siteName" maxlength="32" placeholder="GTAG ESPORTS HUB">
+   <label>Accent color</label><input id="accentColor" type="color" value="#a855f7" style="height:48px;padding:5px">
+   <label>Homepage headline</label><input id="homeHeadline" maxlength="65" placeholder="PLAY. COMPETE. TAKE THE CROWN.">
+   <div class="toolbar"><button class="btn" id="saveSettings">SAVE CUSTOMIZATION</button><button class="btn secondary" id="resetSettings">RESET DEFAULTS</button></div>
+  </div>
+  <div class="settings-preview"><span class="eyebrow">LIVE PREVIEW</span><h2 id="previewName" style="margin-top:20px">GTAG ESPORTS HUB</h2><h1 id="previewHeadline" style="font-size:34px">PLAY. COMPETE.<br>TAKE THE CROWN.</h1><p class="muted">Your esports hub, your identity.</p><button class="btn">SAMPLE BUTTON</button></div>
+ </div>
+ <div class="card" style="margin-top:16px;border-color:#74439b"><h3>Friend-group admin reset</h3><p class="muted">Enter the group password to restart the stats: every player's wins, losses, and points go to 0, and all saved brackets are reset to their opening matchups. Players, games, teams, and tournament names stay saved.</p><div class="form-grid"><div><label for="pointsResetPassword">Admin password</label><input id="pointsResetPassword" type="password" inputmode="numeric" autocomplete="off" placeholder="Enter password"></div><div style="display:flex;align-items:end"><button class="btn danger" id="passwordResetPoints" style="width:100%">RESET ALL PLAYER STATS + BRACKETS</button></div></div><p class="muted small" id="pointsResetMessage" aria-live="polite"></p></div>
+ <div class="card" style="margin-top:16px"><h3>Data & privacy</h3><p class="muted">Your friend-group hub currently saves in this browser only. Other people on different devices will not see your changes until we connect the free shared database and publish the site.</p><button class="btn danger" id="clearData">CLEAR LOCAL WEBSITE DATA</button></div>
+</section>
+</main>
+<footer>BUILT FOR THE FRIEND GROUP • PLAY FAIR • RUN IT BACK</footer>
+<script>
+const defaults={
+ games:[
+  {name:"Gorilla Tag",icon:"🐒",desc:"Movement, jukes and 1v1 battles."},
+  {name:"Fortnite",icon:"🏝️",desc:"Build fights, zero build and squads."},
+  {name:"Minecraft",icon:"⛏️",desc:"PvP, survival events and minigames."},
+  {name:"Valorant",icon:"🎯",desc:"Tactical rounds and team strategy."},
+  {name:"Rainbow Six Siege",icon:"🛡️",desc:"Tactical 5v5 attack and defense."},
+  {name:"Rocket League",icon:"🚗",desc:"High-speed car soccer."},
+  {name:"Other Games",icon:"🎮",desc:"Add your own games and communities."}
+ ],
+ players:[
+  {name:"Lyric",game:"Gorilla Tag",wins:0,losses:0,points:0},
+  {name:"Deniz",game:"Gorilla Tag",wins:0,losses:0,points:0},
+  {name:"Tyler",game:"Gorilla Tag",wins:0,losses:0,points:0},
+  {name:"Liam",game:"Gorilla Tag",wins:0,losses:0,points:0},
+  {name:"Calvin",game:"Gorilla Tag",wins:0,losses:0,points:0},
+  {name:"RJ",game:"Gorilla Tag",wins:0,losses:0,points:0},
+  {name:"Charlie",game:"Gorilla Tag",wins:0,losses:0,points:0}
+ ],brackets:[],teams:[],settings:{name:"GTAG ESPORTS HUB",color:"#a855f7",headline:"PLAY. COMPETE. TAKE THE CROWN."}
+};
+let data;
+try{data=JSON.parse(localStorage.getItem("esportsHubData"))||structuredClone(defaults)}catch(e){data=structuredClone(defaults)}
+// Stable player IDs and a one-time friend-group season reset for this updated version.
+data.players.forEach((p,i)=>{if(!p.id)p.id="player_"+i+"_"+String(p.name).toLowerCase().replace(/[^a-z0-9]+/g,"_");p.wins=Number(p.wins)||0;p.losses=Number(p.losses)||0;p.points=Number(p.points)||0});
+if(!localStorage.getItem("esportsHubFriendGroupStatsResetV1")){
+ data.players.forEach(p=>{p.wins=0;p.losses=0;p.points=0});
+ data.brackets.forEach(b=>{if(Array.isArray(b.entrants)&&b.entrants.length>=2){const fresh=makeBracket(b.name,b.game,b.entrants,b.roster||{});b.rounds=fresh.rounds;}b.awardedTo=null;b.winAwardedTo=null;});
+ localStorage.setItem("esportsHubFriendGroupStatsResetV1","1");localStorage.setItem("esportsHubData",JSON.stringify(data));
+}
+let draftEntrants=[];
+function save(){localStorage.setItem("esportsHubData",JSON.stringify(data));renderAll()}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function go(page){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===page));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));window.scrollTo({top:0,behavior:"smooth"});if(page==="brackets")renderBracketList()}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+function gameOptions(){return data.games.map(g=>`<option value="${esc(g.name)}">${esc(g.name)}</option>`).join("")}
+function gameCard(g){return `<div class="game-card"><div class="game-icon">${esc(g.icon)}</div><h3>${esc(g.name)}</h3><p class="muted">${esc(g.desc)}</p><div class="row"><button class="btn secondary" data-game-rank="${esc(g.name)}">LEADERBOARD</button><button class="btn ghost" data-game-bracket="${esc(g.name)}">BRACKET</button></div></div>`}
+function wireGameCards(){document.querySelectorAll("[data-game-rank]").forEach(b=>b.onclick=()=>{go("rankings");document.getElementById("rankGame").value=b.dataset.gameRank;renderRankings()});document.querySelectorAll("[data-game-bracket]").forEach(b=>b.onclick=()=>{go("brackets");document.getElementById("bracketGame").value=b.dataset.gameBracket})}
+function renderGames(){document.getElementById("gameGrid").innerHTML=data.games.map(gameCard).join("");document.getElementById("homeGames").innerHTML=data.games.slice(0,3).map(gameCard).join("");wireGameCards()}
+function renderRankings(){let q=(document.getElementById("rankSearch")?.value||"").toLowerCase(),g=document.getElementById("rankGame")?.value||"All games";let rows=data.players.map((p,index)=>({...p,_index:index})).filter(p=>p.name.toLowerCase().includes(q)&&(g==="All games"||p.game===g)).sort((a,b)=>b.points-a.points);document.getElementById("rankTable").innerHTML=rows.map((p,i)=>`<tr><td>#${i+1}</td><td><b>${esc(p.name)}</b></td><td>${esc(p.game)}</td><td>${p.wins}</td><td>${p.losses}</td><td class="accent"><input aria-label="${esc(p.name)} score" type="number" min="0" step="1" value="${p.points}" data-score-input="${p._index}" style="width:85px;padding:6px"></td><td><div class="row"><button class="btn secondary" data-save-score="${p._index}">SAVE</button><button class="btn ghost" data-add-win="${p._index}">+WIN</button><button class="btn ghost" data-add-loss="${p._index}">+LOSS</button></div></td></tr>`).join("")||`<tr><td colspan="7" class="muted">No players found.</td></tr>`;
+document.querySelectorAll("[data-save-score]").forEach(b=>b.onclick=()=>{let i=+b.dataset.saveScore,v=Number(document.querySelector(`[data-score-input="${i}"]`).value);if(!Number.isFinite(v)||v<0)return alert("Enter a valid score of 0 or higher.");data.players[i].points=Math.floor(v);save()});
+document.querySelectorAll("[data-add-win]").forEach(b=>b.onclick=()=>{data.players[+b.dataset.addWin].wins++;save()});
+document.querySelectorAll("[data-add-loss]").forEach(b=>b.onclick=()=>{data.players[+b.dataset.addLoss].losses++;save()})}
+function renderHomePlayers(){let rows=[...data.players].sort((a,b)=>b.points-a.points).slice(0,5);document.getElementById("homePlayers").innerHTML=rows.map((p,i)=>`<div class="listrow"><div class="rank">#${i+1}</div><div class="avatar">${esc(p.name[0].toUpperCase())}</div><div class="grow"><b>${esc(p.name)}</b><div class="muted">${esc(p.game)} · ${p.wins} wins</div></div><b class="accent">${p.points}</b></div>`).join("")||`<div class="empty">Add players in Rankings.</div>`}
+function renderRecentActivity(){const completed=data.brackets.filter(b=>b.rounds?.length&&b.rounds.at(-1)?.[0]?.winner).slice().sort((a,b)=>String(b.completedAt||b.created||"").localeCompare(String(a.completedAt||a.created||""))).slice(0,5);document.getElementById("recentActivity").innerHTML=completed.map(b=>`<div class="listrow"><div class="rank">🏆</div><div class="grow"><b>${esc(b.rounds.at(-1)[0].winner)}</b><div class="muted">${esc(b.name)} · ${esc(b.game)}</div></div><span class="pill">CHAMPION</span></div>`).join("")||`<div class="empty">No champions yet. Finish a bracket and the winner will show up here.</div>`}
+
+function renderTeams(){document.getElementById("teamGrid").innerHTML=data.teams.map((t,i)=>`<div class="game-card"><div class="game-icon">🛡️</div><h3>${esc(t.name)}</h3><p class="muted">${esc(t.game)} · ${esc(t.members)}</p><button class="btn danger" data-delete-team="${i}">DELETE TEAM</button></div>`).join("")||`<div class="empty">No teams yet. Create your first club.</div>`;document.querySelectorAll("[data-delete-team]").forEach(b=>b.onclick=()=>{data.teams.splice(+b.dataset.deleteTeam,1);save()})}
+function renderBracketList(){let el=document.getElementById("bracketList");el.innerHTML=data.brackets.map((b,i)=>`<div class="listrow"><div class="grow"><b>${esc(b.name)}</b><div class="muted">${esc(b.game)} · ${b.entrants.length} entrants</div></div><button class="btn secondary" data-open-bracket="${i}">OPEN</button></div>`).join("")||`No tournaments yet. Create one to get started.`;document.querySelectorAll("[data-open-bracket]").forEach(b=>b.onclick=()=>showBracket(+b.dataset.openBracket))}
+function nextPower(n){let p=1;while(p<n)p*=2;return p}
+function makeBracket(name,game,names,roster){let size=nextPower(names.length),first=names.slice();while(first.length<size)first.push(null);let rounds=[];let matches=[];for(let i=0;i<size;i+=2)matches.push({a:first[i],b:first[i+1],winner:first[i+1]===null?first[i]:null});rounds.push(matches);while(matches.length>1){let next=[];for(let i=0;i<matches.length;i+=2)next.push({a:matches[i].winner,b:matches[i+1].winner,winner:null});rounds.push(next);matches=next}return {name,game,entrants:names,roster,rounds,created:new Date().toISOString(),pointsPerPlayer:100,awardedTo:null,winAwardedTo:null,completedAt:null}}
+function renderPlayerPicker(){let game=document.getElementById("bracketGame").value,available=data.players.filter(p=>p.game===game);document.getElementById("playerPicker").innerHTML=available.map(p=>`<label class="pick-option"><input type="checkbox" value="${esc(p.id)}" data-pick-player> ${esc(p.name)}</label>`).join("")||`<div class="muted small">No players for this game yet. Add players in Rankings first.</div>`}
+function renderDraftEntrants(){document.getElementById("draftEntrants").innerHTML=draftEntrants.map((e,i)=>`<div class="entrant-chip"><span><b>${esc(e.label)}</b> <span class="muted">(${e.playerIds.length} player${e.playerIds.length===1?"":"s"})</span></span><button class="btn ghost" data-remove-entrant="${i}">REMOVE</button></div>`).join("")||"No entrants added yet.";document.querySelectorAll("[data-remove-entrant]").forEach(btn=>btn.onclick=()=>{draftEntrants.splice(+btn.dataset.removeEntrant,1);renderDraftEntrants()})}
+function addDraftEntrant(){let selected=[...document.querySelectorAll("[data-pick-player]:checked")].map(el=>el.value);if(selected.length<1||selected.length>5){alert("Select between 1 and 5 players for each entrant/team.");return}let already=draftEntrants.flatMap(e=>e.playerIds);if(selected.some(id=>already.includes(id))){alert("A player can only be on one entrant in this tournament.");return}let players=selected.map(id=>data.players.find(p=>p.id===id)).filter(Boolean);let label=players.map(p=>p.name).join(" + ");draftEntrants.push({label,playerIds:selected});document.querySelectorAll("[data-pick-player]").forEach(el=>el.checked=false);renderDraftEntrants()}
+function createBracket(){let name=document.getElementById("bracketName").value.trim()||"New Tournament",game=document.getElementById("bracketGame").value;if(draftEntrants.length<2||draftEntrants.length>32){alert("Add between 2 and 32 players/teams to the tournament.");return}let names=draftEntrants.map(e=>e.label),roster=Object.fromEntries(draftEntrants.map(e=>[e.label,e.playerIds]));let b=makeBracket(name,game,names,roster);data.brackets.push(b);draftEntrants=[];renderDraftEntrants();save();showBracket(data.brackets.length-1)}
+function showBracket(index){let b=data.brackets[index];if(!b)return;document.getElementById("bracketDetail").innerHTML=`<div class="row between"><div><h2>${esc(b.name)}</h2><p class="muted">${esc(b.game)} · ${b.entrants.length} entrants · Single elimination</p></div><button class="btn danger" id="deleteCurrentBracket">DELETE</button></div><p class="muted small">Click a player's WIN button to advance them. Correct an accidental result by choosing the other player in that match.</p><div class="bracket-wrap"><div class="bracket">${b.rounds.map((round,r)=>`<div class="round"><h3>${r===b.rounds.length-1?"Final":r===b.rounds.length-2?"Semi-finals":`Round ${r+1}`}</h3>${round.map((m,mi)=>`<div class="match"><div class="slot ${m.winner===m.a&&m.a?"winner":""}"><span>${m.a?esc(m.a):"TBD"}</span>${m.a?`<button data-win="${r},${mi},a">WIN</button>`:""}</div><div class="slot ${m.winner===m.b&&m.b?"winner":""}"><span>${m.b?esc(m.b):"TBD"}</span>${m.b?`<button data-win="${r},${mi},b">WIN</button>`:""}</div></div>`).join("")}</div>`).join("")}</div></div>${b.rounds.at(-1)[0].winner?`<div class="pill">🏆 CHAMPION: ${esc(b.rounds.at(-1)[0].winner)} · +${b.pointsPerPlayer||100} POINTS PER PLAYER</div>`:""}`;
+ document.getElementById("deleteCurrentBracket").onclick=()=>{if(confirm("Delete this tournament?")){data.brackets.splice(index,1);save();document.getElementById("bracketDetail").innerHTML='<div class="empty">Select or create a tournament.</div>'}};
+ document.querySelectorAll("[data-win]").forEach(btn=>btn.onclick=()=>{
+  const [roundText,matchText,side]=btn.dataset.win.split(",");const r=Number(roundText),mi=Number(matchText),match=b.rounds[r]?.[mi],winner=match?.[side];if(!winner)return;
+  match.winner=winner;
+  // Rebuild every later round from the previous round's winners. This prevents stale finalists after a correction.
+  let childMatchIndex=mi;for(let rr=r+1;rr<b.rounds.length;rr++){const previousRound=b.rounds[rr-1],currentRound=b.rounds[rr],parentIndex=Math.floor(childMatchIndex/2),parent=currentRound[parentIndex];if(parent){parent.a=previousRound[parentIndex*2]?.winner||null;parent.b=previousRound[parentIndex*2+1]?.winner||null;parent.winner=null;}childMatchIndex=parentIndex;}
+  const champion=b.rounds.at(-1)[0].winner||null,previous=b.awardedTo||null,previousWin=b.winAwardedTo||null;
+  if(champion!==previous){if(previous)(b.roster?.[previous]||[]).forEach(id=>{const p=data.players.find(x=>x.id===id);if(p)p.points=Math.max(0,(p.points||0)-(b.pointsPerPlayer||100));});if(champion)(b.roster?.[champion]||[]).forEach(id=>{const p=data.players.find(x=>x.id===id);if(p)p.points=(p.points||0)+(b.pointsPerPlayer||100);});b.awardedTo=champion;}
+  if(champion!==previousWin){if(previousWin)(b.roster?.[previousWin]||[]).forEach(id=>{const p=data.players.find(x=>x.id===id);if(p)p.wins=Math.max(0,(p.wins||0)-1);});if(champion)(b.roster?.[champion]||[]).forEach(id=>{const p=data.players.find(x=>x.id===id);if(p)p.wins=(p.wins||0)+1;});b.winAwardedTo=champion;}
+  b.completedAt=champion?new Date().toISOString():null;save();showBracket(index);
+ });
+}
+function renderSettings(){let s=data.settings;document.documentElement.style.setProperty("--accent",s.color);document.documentElement.style.setProperty("--accent2",s.color);document.querySelector(".brand").innerHTML=esc(s.name).replace(/ ESPORTS/i,' <span>ESPORTS</span>');document.getElementById("siteName").value=s.name;document.getElementById("accentColor").value=s.color;document.getElementById("homeHeadline").value=s.headline;document.getElementById("previewName").textContent=s.name;document.getElementById("previewHeadline").textContent=s.headline;document.getElementById("heroTitle").innerHTML=esc(s.headline).replace(/\.\s*/g,'.<br><span>')+(s.headline.includes(".")?"</span>":"")}
+function renderAll(){document.getElementById("statGames").textContent=data.games.length;document.getElementById("statPlayers").textContent=data.players.length;document.getElementById("statBrackets").textContent=data.brackets.length;document.getElementById("statMatches").textContent=data.brackets.reduce((n,b)=>n+b.rounds.flat().filter(m=>m.winner).length,0);document.getElementById("rankGame").innerHTML='<option>All games</option>'+gameOptions();document.getElementById("bracketGame").innerHTML=gameOptions();renderGames();renderRankings();renderHomePlayers();renderRecentActivity();renderBracketList();renderTeams();renderSettings()}
+function resetAllPlayerStats(){data.players.forEach(p=>{p.wins=0;p.losses=0;p.points=0});data.brackets.forEach(b=>{if(Array.isArray(b.entrants)&&b.entrants.length>=2){const fresh=makeBracket(b.name,b.game,b.entrants,b.roster||{});b.rounds=fresh.rounds;}b.awardedTo=null;b.winAwardedTo=null;b.completedAt=null;});}
+document.getElementById("passwordResetPoints").onclick=()=>{const password=document.getElementById("pointsResetPassword").value;const message=document.getElementById("pointsResetMessage");if(password!=="0214"){message.textContent="Incorrect password. Nothing was reset.";message.style.color="var(--danger)";return}if(!confirm("Reset ALL player wins, losses, points, and bracket progress? Players, teams, games, and tournament names will remain."))return;resetAllPlayerStats();document.getElementById("pointsResetPassword").value="";message.textContent="Season reset complete: every player's wins, losses, and points are now 0, and all brackets are back to round one.";message.style.color="var(--good)";save()};
+document.getElementById("rankSearch").addEventListener("input",renderRankings);document.getElementById("rankGame").addEventListener("change",renderRankings);
+document.getElementById("createBracket").onclick=createBracket;document.getElementById("addEntrantBtn").onclick=addDraftEntrant;document.getElementById("clearEntrantsBtn").onclick=()=>{draftEntrants=[];renderDraftEntrants()};document.getElementById("bracketGame").addEventListener("change",()=>{draftEntrants=[];renderDraftEntrants();renderPlayerPicker()});
+document.getElementById("addGameBtn").onclick=()=>{let name=prompt("Game name?");if(!name?.trim())return;if(data.games.some(g=>g.name.toLowerCase()===name.trim().toLowerCase()))return alert("That game is already in the hub.");let icon=prompt("Choose an emoji icon:","🎮")||"🎮";let desc=prompt("Short game description:","Community tournaments and matches.")||"Community tournaments and matches.";data.games.push({name:name.trim(),icon,desc});save()};
+document.getElementById("addPlayerBtn").onclick=()=>{let name=prompt("Player name?");if(!name?.trim())return;let game=prompt("Game (use a game name from the hub):",data.games[0]?.name)||data.games[0]?.name;if(!data.games.some(g=>g.name===game))return alert("Please enter a game that exists in the hub.");data.players.push({id:"player_"+Date.now()+"_"+Math.random().toString(36).slice(2),name:name.trim(),game,wins:0,losses:0,points:0});save();renderPlayerPicker()};
+document.getElementById("addTeamBtn").onclick=()=>{let name=prompt("Team name?");if(!name?.trim())return;let game=prompt("Game:",data.games[0]?.name)||data.games[0]?.name;let members=prompt("Team members (comma separated):","")||"Roster not set";data.teams.push({name:name.trim(),game,members});save()};
+function preview(){document.getElementById("previewName").textContent=document.getElementById("siteName").value||"GTAG ESPORTS HUB";document.getElementById("previewHeadline").textContent=document.getElementById("homeHeadline").value||"PLAY. COMPETE. TAKE THE CROWN.";document.documentElement.style.setProperty("--accent",document.getElementById("accentColor").value)}
+["siteName","accentColor","homeHeadline"].forEach(id=>document.getElementById(id).addEventListener("input",preview));
+document.getElementById("saveSettings").onclick=()=>{data.settings={name:document.getElementById("siteName").value.trim()||"GTAG ESPORTS HUB",color:document.getElementById("accentColor").value,headline:document.getElementById("homeHeadline").value.trim()||"PLAY. COMPETE. TAKE THE CROWN."};save();alert("Customization saved!")};
+document.getElementById("resetSettings").onclick=()=>{data.settings={...defaults.settings};save()};
+document.getElementById("clearData").onclick=()=>{if(confirm("This permanently clears local players, teams, brackets and custom settings in this browser. Continue?")){data=structuredClone(defaults);save();alert("Local data cleared.")}};
+renderAll();renderPlayerPicker();renderDraftEntrants();
+</script>
+</body>
+</html>
